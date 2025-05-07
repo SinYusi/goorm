@@ -1,0 +1,18 @@
+/* react-logo-animation.css */
+.react-logo {
+  animation: react-logo-spin infinite 20s linear;
+  transition: filter 0.3s;
+}
+
+.react-logo:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes react-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
