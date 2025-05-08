@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Flexbox</title>
+  <meta charset="UTF-8" />
+  <style>
+    .container-1 {
+      margin: 20px;
+      padding: 20px;
+      background-color: lightcyan;
+
+      text-align: center;
+    }
+
+    .container-1>.main-axis-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .container-2 {
+      margin: 20px;
+      padding: 20px;
+      background-color: lightblue;
+
+      text-align: center;
+    }
+
+    .container-2>.cross-axis-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-1">
+    <h1>수평 정렬</h1>
+    <div class="main-axis-container">
+      <button>flex button 1</button>
+      <button>flex button 2</button>
+      <button>flex button 3</button>
+    </div>
+  </div>
+
+  <div class="container-2">
+    <h1>수직 정렬</h1>
+    <div class="cross-axis-container">
+      <button>flex button 1</button>
+      <button>flex button 2</button>
+      <button>flex button 3</button>
+    </div>
+  </div>
+</body>
+
+</html>
