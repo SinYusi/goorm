@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<title>Document</title>
 	<style>
+		/* blue 클래명을 가진 요소의 글씨 색상을 blue로 적용 */
 		.blue {
 			color: blue;
 		}
@@ -15,9 +16,11 @@
 	<div></div>
 
 	<script>
-		const div = document.querySelector("div");
-		div.innerHTML = "<h1>Hello, World!</h1><p>안녕하세요!</p>";
-
+		// 빈 div 태그에 아래 텍스트를 넣어주세요
+		// Hello, World! - h1 태그 사용
+		// 안녕하세요! - p 태그 사용
+		let div = document.querySelector("div");
+		div.innerHTML = "<h1>Hello, World</h1><p>안녕하세요!</p>";
 		// h1 태그에 blue 라는 class명을 추가하여 글씨 색상을 파란색으로 적용합니다.
 		const h1 = document.querySelector("h1");
 		h1.classList.add("blue");
