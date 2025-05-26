@@ -181,7 +181,7 @@
 
 실행 컨텍스트의 구조 중에서 Environment Record, Outer Environment Reference를 알아보자.
 
-![image.png](attachment:3049cb64-a6d1-4a66-a6a2-05cd244587bf:image.png)
+![alt text](img/image.png)
 
 - Environment Record(환경 레코드): 식별자와 식별자에 바인딩된 값을 기록해두는 객체
 - Outer Environment Reference(외부 환경 참조): 바깥 Lexical Environment를 가리킴
@@ -197,11 +197,11 @@
 
 다음 그림 순서대로 쌓이는 것이다.
 
-![image.png](attachment:ff50bdd7-f70a-4a74-b1b1-30555126886e:image.png)
+![alt text](img/image-1.png)
 
-![image.png](attachment:a46c84f3-5159-4f93-ba42-068e0111a0d5:image.png)
+![alt text](img/image-2.png)
 
-![image.png](attachment:614b2700-0a3e-4c2d-9f60-f8d594736679:image.png)
+![alt text](img/image-3.png)
 
 함수 B의 실행이 끝나면 B의 실행 컨텍스트는 사라지고, 함수 A의 실행이 끝나면 A의 실행 컨텍스트도 사라지고,
 
@@ -229,9 +229,7 @@
 
 위 코드를 실행하면 다음과 같이 실행 컨텍스트가 담길 것이다.
 
-![출처: [https://inpa.tistory.com/entry/JS-📚-실행-컨텍스트](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8)](attachment:3002e119-45f4-4b8d-8eec-9cc10c40df9f:image.png)
-
-출처: [https://inpa.tistory.com/entry/JS-📚-실행-컨텍스트](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8)
+![alt text](img/image-4.png) <br /> 출처: [https://inpa.tistory.com/entry/JS-📚-실행-컨텍스트](https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8)
 
 이제 실행 컨텍스트에서 호이스팅을 사용해서 어떻게 변수를 저장하는지 알아보자.
 
@@ -290,7 +288,7 @@ console.log(name) // mandoo
     goToNextContext()
     ```
     
-    ![image.png](attachment:b3b9dfc5-a6b2-4a65-8476-f2de698f6e1b:image.png)
+    ![alt text](img/image-5.png)
     
     위 코드에서 어떻게 동작하는지 실행 컨텍스트로 이해해보자.
     
@@ -330,7 +328,7 @@ console.log(name) // mandoo
     
     이런 결과가 어떻게 나오는지 사진으로 알아보자.
     
-    ![image.png](attachment:e9ac1fbb-84d2-4452-bd62-fb544ec000b9:image.png)
+    ![alt text](img/image-6.png)
     
     1. 코드가 실행되면서 전역 실행 컨텍스트 생성
     2. `mandoo` 변수가 선언되고, `funcA`가 선언문으로 만들어져 함수 통째로 호이스팅
@@ -652,3 +650,236 @@ outerFunc(); // 10
         console.log(counter.increase()); // 1
         console.log(counter.decrease()); // 0
         ```
+        
+        위 코드를 보면 Class 문법이랑 비슷하게 생긴 것을 느낄 수 있다.
+        
+        단지 `function` 키워드로 생성자 함수를 만든 것이다.
+        
+        생성자 함수 `Counter` 는 `increase`, `decrease` 메소드를 갖는 인스턴스를 생성한다.
+        
+        이 메서드들은 모두 자신이 생성됐을 때의 렉시컬 환경인 생성자 함수 `Counter` 의 스코프에 속한 변수 `counter` 를 기억하는 클로저이며 렉시컬 환경을 공유하게 된다.
+        
+        생성자 함수가 생성한 객체의 메서드는 객체의 프로퍼티에만 접근할 수 있는 것이 아니며, 자신이 기억하는 렉시컬 환경의 변수에도 접근할 수 있다.
+        
+        이 때 생성자 함수 `Counter` 의 변수 `counter` 는 말 그대로 변수다.
+        
+        변수 `counter` 가 `this` 에 바인딩된 프로퍼티라면 생성자 함수 `Counter` 가 생성한 인스턴스를 통해 외부에서 접근이 가능한 `public` 프로퍼티가 되지만 생성자 함수 `Counter` 내에서 선언된 변수 `counter` 는 생성자 함수 `Counter` 외부에서 접근할 수 없다.
+        
+        쉽게 말 해 `counter` 는 변수이기에 외부에서 이 변수에 접근할 방법이 없다.
+        
+        하지만 생성자 함수 `Counter` 가 생성한 인스턴스의 메서드인 `increase`, `decrease` 는 클로저이기에 자신이 생성됐을 때의 렉시컬 환경인 생성자 함수 `Counter` 의 변수 `counter` 에 접근할 수 있다.
+        
+        이러한 클로저의 특징을 사용해 클래스 기반 언어의 `private` 키워드를 흉내낼 수 있는 것이다.
+        
+        - 정보를 은닉화하는 클로저의 예제 두 개
+            1. `_name`이라는 변수를 은닉화하여 외부에서 접근을 막으며 `new` 키워드로 만들어진 인스턴스를 통해 `*` 부분의 클로저 함수가 실행되면서 `_name` 에 접근 가능
+                
+                ```jsx
+                function hello(name) {
+                  let _name = name;
+                  // *
+                  return function () { 
+                    console.log('Hello, ' + _name);
+                  };
+                }
+                
+                let a = new hello('영서');
+                let b = new hello('아름');
+                
+                a() //Hello, 영서
+                b() //Hello, 아름
+                
+                console.log(name) // ReferenceError: _name is not defined
+                ```
+                
+            2. `temp` 라는 변수를 은닉화하여 외부에서 접근을 막으며 `a` 함수가 사라져도 `temp` 라는 변수에 접근할 수 있게 됨
+                
+                ```jsx
+                function a(){
+                  let temp = 'a' 
+                  
+                  return temp;
+                } 
+                
+                const result = a()
+                console.log(result); // a 를 잘 출력하게 되죠
+                
+                console.log(temp) // error: temp is not defined
+                ```
+                
+
+## Web Socket
+
+WebSocket 객체는 WebSocket 서버 연결의 생성과 관리 및 연결을 통한 데이터 송수신 API를 제공한다.
+
+즉, 웹 소켓을 사용하면 서버와 브라우저 간 연결을 유지한 상태로 데이터를 교환할 수 있다.
+
+이러한 특징 때문에 웹소켓은 온라인 게임이나 주식 트레이딩 시스템 같이 데이터 교환이 지속적으로 이뤄져야 하는 서비스에 아주 적합하다.
+
+간단한 사용법을 보자면, 웹 소켓 커넥션을 만들기 위해 `new` 키워드를 사용하여 호출하면 된다.
+
+이 때 ws라는 특수 프로토콜을 사용해야 한다.
+
+```jsx
+let socket = new WebSocket("ws://javascript.info")
+```
+
+여기에 통신 프로토콜로 `ws` 말고 `wss://` 라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사하다. 
+
+`wss://` 는 보안 이외에도 신뢰성(reliability) 측면에서 ws보다 좀 더 신뢰할만한 프로토콜이다.
+
+`ws://` 를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출된다.
+
+하지만 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 ‘이상한’ 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버린다.
+
+반면 `wss://` 는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 된다.
+
+따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 된다.
+
+이런 과정을 통해 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 된다.
+
+- `open` : 커넥션이 제대로 만들어졌을 때 발생
+- `message` : 데이터를 수신하였을 때 발생
+- `error` : 에러가 생겼을 때 발생
+- `close` : 커넥션이 종료되었을 때 발생
+
+간단한 예시코드를 통해 찍먹해보자.
+
+아래 코드를 실행해 데모 버전으로 직접 서버에 데이터를 전송해보고자 한다.
+
+```jsx
+<!DOCTYPE html>
+<html>
+  <body>
+    <input id="socketInput" type="text" />
+    <button id="sendBtn">send</button>
+
+    <script>
+      const sendBtn = document.getElementById("sendBtn");
+      const socketInput = document.getElementById("socketInput");
+
+      let socket = new WebSocket(
+        "wss://javascript.info/article/websocket/demo/hello"
+      );
+
+      socket.onopen = function (e) {
+        alert("[open] 커넥션이 만들어졌습니다.");
+        alert("데이터를 서버에 전송해봅시다.");
+        // socket.send("My name is Bora");
+      };
+
+      socket.onmessage = function (event) {
+        alert(`[message] 서버로부터 전송받은 데이터: ${event.data}`);
+      };
+
+      socket.onclose = function (event) {
+        if (event.wasClean) {
+          alert(
+            `[close] 커넥션이 정상적으로 종료되었습니다(code=${event.code} reason=${event.reason})`
+          );
+        } else {
+          // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
+          // event.code가 1006이 됩니다.
+          alert("[close] 커넥션이 죽었습니다.");
+        }
+      };
+
+      socket.onerror = function (error) {
+        alert(`[error]`);
+      };
+
+      sendBtn.addEventListener("click", function () {
+        const message = socketInput.value;
+        if (message) {
+          socket.send(message);
+          alert(`메시지를 전송했습니다: ${message}`);
+        } else {
+          alert("메시지를 입력해주세요.");
+        }
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+이제 사용법을 익혀봤으니 좀 더 자세히 알아보자.
+
+`new Websocket(url)` 을 호출해 소켓을 생성하면 즉시 연결이 시작된다.
+
+커넥션이 유지되는 동안, 브라우저는 (헤더를 사용해) 서버에 “웹소켓을 지원하나?”라고 물어본다.
+
+이에 서버가 ok하면 서버-브라우저간 통신은 HTTP가 아닌 웹소켓 프로토콜을 사용해 진행된다.
+
+만약, 데이터 전송량이 상단한 앱을 개발하고 있다고 하고, 시골에 있는 유저가 이 앱을 사용한다고 생각해보자.
+
+이럴 때 유저가 계속해서 `socekt.send()` 를 통해 데이터 전송하기 버튼을 마구 누르게 되면 바로바로 전송되지 않고 네트워크 연결이 안좋을 때에는 메모리에 쌓여 있다가(버퍼), 네트워크 속도가 데이터를 송싱한기에 충분할 때만 송신이 될 것이다.
+
+이 때, `socket.bufferedAmound` 프로퍼티는 송신 대기 중인 현재 시점에서 얼마나 많은 바이트가 메모리에 쌓여 있는지 정보를 담고 있다.
+
+따라서 `socket.bufferedAmount` 프로퍼티 값을 확인하면 소켓을 전송해 사용할 수 있는지 아닌지를 판단할 수 있게 되는 것이다.
+
+- 예시 코드: 100ms마다 소켓을 확인해 쌓여있는 바이트가 없는 경우에만 데이터를 추가 전송
+    
+    ```jsx
+    setInterval(() => {
+      if (socket.bufferedAmount == 0) {
+        socket.send(moreData());
+      }
+    }, 100);
+    ```
+    
+
+## SSE (Serever-Sent Events)
+
+SSE는 서버의 데이터를 실시간으로, 지속적으로 스트리밍하는 기술이다.
+
+이 녀석은 웹소켓과 거의 동일하게 동작하는데 다른 점은 서버로 이벤트를 보낼 수 없다는 점이다.
+
+클라이언트 측 코드는 들어오는 이벤트를 처리하는 부분에서 웹소켓과 거의 동일하게 동작한다.
+
+하지만 SSE는 단방향 연결이기에 클라이언트에서 서버로 이벤트를 보낼 수 는 없다.
+
+![alt text](img/image-7.png)
+
+SSE는 그럼 언제 사용될까? 주로 클라이언트가 수신만 받으면 될 때 사용된다.(단방향 통신이 필요한 경우) 예를 들어,
+
+- 암호 화폐 또는 주가 피드 구독
+- 뉴스 업데이트 또는 알림 받기
+- 인스타그램 팔로우 요청 받기
+- 구독한 채널의 새로운 영상 업로드 알림을 받을 때
+
+SSE 특징 중 하나가 바로 서버 연결이 끊기면 자동으로 재접속 시도를 한다는 것이다.
+
+연결이 뜮어지면 EventSource가 오류 이벤트를 발생시키고 자동으로 다시 연결을 시도한다.
+
+그래서 우리 클라이언트 측에서 SSE를 어떻게 구현하면 되는가?
+
+기본적으로 브라우저는 SSE를 쉽게 사용할 수 있도록 EventSource API를 제공한다.
+
+서버에서 업데이트된 내용이 푸시되면 `onmessage` 함수가 실행된다.
+
+이벤트를 전달 받기 위해서 서버로 접속을 시작하려면 우선, 이벤트를 생성하는 서버측 스크립트를 URI로 지정하여 새로운 `EventSource` 객체를 생성한다.
+
+이벤트를 생성하는 스크립트가 다른 도메인에 있다면 URI와 옵션으로 `withCredentials` 을 지정해준다
+
+```jsx
+const evtSource = new EventSource("//api.example.com/ssedemo.php", { withCredentials: true } );
+
+// 서버로부터 데이터가 오면
+eventSource.addEventListener('message', function(e) {
+  console.log(e.data);
+});
+
+// connection되면
+eventSource.addEventListener('open', function(e) {
+  // Connection was opened.
+});
+
+// error 나면
+eventSource.addEventListener('error', function(e) {
+  if (e.readyState == EventSource.CLOSED) {
+    // Connection was closed.
+  }
+});
+```
